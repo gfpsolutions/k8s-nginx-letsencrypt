@@ -9,6 +9,8 @@ RUN set -x; \
     apt-get update \
     && apt-get install -y --no-install-recommends \
     software-properties-common \
+    curl \
+    jq \
     gpg
 
 RUN set -x; \
