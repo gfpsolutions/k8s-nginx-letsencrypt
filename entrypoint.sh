@@ -16,11 +16,8 @@ NAMESPACE=$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace)
 echo "Current Kubernetes namespce: $NAMESPACE"
 
 echo "Starting HTTP server..."
-python -m SimpleHTTPServer 80 &
-PID=$!
 echo "Starting certbot..."
-certbot certonly --webroot -w $HOME -n --agree-tos --email ${EMAIL} --no-self-upgrade -d ${DOMAINS}
-kill $PID
+certbot certonly --agree-tos --standalone -m ${EMAIL} --preferred-challenges http -d ${DOMAINS}
 echo "Certbot finished. Killing http server..."
 
 echo "Finiding certs. Exiting if certs are not found ..."
