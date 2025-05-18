@@ -38,7 +38,7 @@ ls /secret-patch.json || exit 1
 # Update Secret
 echo  "update secret"
 RESP=`curl -v --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -H "Authorization: Bearer $(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" -k -v -XPATCH  -H "Accept: application/json, */*" -H "Content-Type: application/strategic-merge-patch+json" -d @/secret-patch.json https://kubernetes.default/api/v1/namespaces/${NAMESPACE}/secrets/${SECRET}`
-CODE=`echo $RESP | jq -r '.code'`
+CODE=$(echo "$RESP" | jq -r '.code // empty')
 
 case $CODE in
 200)
