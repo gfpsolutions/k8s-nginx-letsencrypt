@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:24.04
 
 SHELL ["/bin/bash", "-xo", "pipefail", "-c"]
 
@@ -9,15 +9,11 @@ RUN set -x; \
     apt-get update \
     && apt-get install -y --no-install-recommends \
     software-properties-common \
+    certbot \
+    python3-certbot-nginx \
     curl \
     jq \
     gpg
-
-RUN set -x; \
-    add-apt-repository ppa:certbot/certbot \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
-    python-certbot-nginx
 
 RUN set -x; \
     mkdir -p /etc/letsencrypt
